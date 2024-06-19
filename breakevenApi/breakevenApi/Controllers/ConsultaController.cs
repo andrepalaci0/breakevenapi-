@@ -32,7 +32,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("/getByMedicName/{string}")]
+        [Route("/getByMedicName")]
         public IActionResult getConsultaByMedicName(string name)
         {
             var consulta = _consultaService.GetByMedicName(name);
@@ -58,10 +58,10 @@ namespace breakevenApi.Controllers
 
         [HttpGet]
         [Route("/horariolivre/")]
-        public IActionResult GetHorarioLivre([FromBody] long IdMedico, [FromBody] string data)
+        public IActionResult GetHorarioLivre([FromBody] GetHorarioLivreDTO horarioLivreDTO)
         {
-            DateOnly formatteddata = DateOnly.Parse(data);
-            var horario = _consultaService.GetHorariosLivres(formatteddata, IdMedico);
+            DateOnly formatteddata = DateOnly.Parse(horarioLivreDTO.Data);
+            var horario = _consultaService.GetHorariosLivres(formatteddata, horarioLivreDTO.IdMedico);
             if (horario == null)
             {
                 return NotFound("Não há horários livres com esse médico nesse dia.");

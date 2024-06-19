@@ -42,7 +42,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpPut]
-        [Route("/{crm}")]
+        [Route("/")]
         public IActionResult CreateAgenda(long crm, [FromBody] AgendaDTO agenda)
         {
             //agenda deve ser definida como disponibilidae por dia da semana
@@ -59,16 +59,16 @@ namespace breakevenApi.Controllers
         }
 
         [HttpPatch]
-        [Route("/{crm}")]
-        public IActionResult UpdateAgendaByCrmAndDay([FromQuery] long crm, [FromBody] string dayOfWeek, [FromBody] string newHoraInicio, [FromBody] string newHoraFim)
+        [Route("/")]
+        public IActionResult UpdateAgendaByCrmAndDay([FromBody] UpdateAgendaDTO updateAgendaDTO)
         {
             //atualiza a agenda de um medico em um dia da semana
             //ex: atualiza a agenda do medico de crm 1234 na segunda feira
-            if (crm == 0 || dayOfWeek == null)
+            if (updateAgendaDTO.crm == 0 || updateAgendaDTO == null)
             {
                 return BadRequest();
             }
-            if(!_agendaService.UpdateAgendaByCrmAndDay(crm, dayOfWeek, newHoraInicio, newHoraFim))
+            if(!_agendaService.UpdateAgendaByCrmAndDay(updateAgendaDTO.crm, updateAgendaDTO.dayOfWeek, updateAgendaDTO.newHoraInicio, updateAgendaDTO.newHoraFim))
             {
                 return BadRequest();
             }

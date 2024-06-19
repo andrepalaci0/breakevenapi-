@@ -4618,11 +4618,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\andre.tivo\\source\\repos\\EP_BD2\\breakevenApi\\breakevenApi\\breakevenApi.csproj",
+      "projectUniqueName": "C:\\Users\\andre.tivo\\source\\repos\\breakevenapi-\\breakevenApi\\breakevenApi\\breakevenApi.csproj",
       "projectName": "breakevenApi",
-      "projectPath": "C:\\Users\\andre.tivo\\source\\repos\\EP_BD2\\breakevenApi\\breakevenApi\\breakevenApi.csproj",
+      "projectPath": "C:\\Users\\andre.tivo\\source\\repos\\breakevenapi-\\breakevenApi\\breakevenApi\\breakevenApi.csproj",
       "packagesPath": "C:\\Users\\andre.tivo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\andre.tivo\\source\\repos\\EP_BD2\\breakevenApi\\breakevenApi\\obj\\",
+      "outputPath": "C:\\Users\\andre.tivo\\source\\repos\\breakevenapi-\\breakevenApi\\breakevenApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

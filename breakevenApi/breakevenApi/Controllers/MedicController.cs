@@ -32,7 +32,7 @@ namespace breakevenApi.Controllers
             return Ok(medic); 
         }
 
-        [HttpPut]
+        [HttpPost]
         public IActionResult CreateMedic([FromBody] CreateMedicDTO createMedicDTO)
         {
             var medic = new Medic(createMedicDTO.Crm, createMedicDTO.Percentual, createMedicDTO.Telefone, createMedicDTO.NomeMedico); 

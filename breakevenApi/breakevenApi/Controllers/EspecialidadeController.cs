@@ -23,7 +23,7 @@ namespace breakevenApi.Controllers
             return Ok(_especialidadeRepository.GetByCodigo(idEspecialidade));
         }
 
-        [HttpPut]
+        [HttpPost]
         public IActionResult CreateEspecialidade([FromBody] Especialidade especialidade)
         {
             try{

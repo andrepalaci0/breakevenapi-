@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = breakevenApi.tests
-build_property.ProjectDir = C:\Users\andre.tivo\source\repos\EP_BD2\breakevenApi\tests\
+build_property.ProjectDir = C:\Users\andre.tivo\source\repos\breakevenapi-\breakevenApi\tests\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

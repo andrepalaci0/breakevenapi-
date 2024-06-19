@@ -22,7 +22,6 @@ namespace breakevenApi.Domain.Entities.Consulta
 
         public DateTime HoraFimConsulta { get; set; }
 
-
         public bool Paga { get; set; }
 
         public MetodosPagamento? FormaPagamento { get; set; }
