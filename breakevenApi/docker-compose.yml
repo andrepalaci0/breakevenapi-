@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  breakevenapi:
+    container_name: breakevenapi
+    image: ${DOCKER_REGISTRY-}breakevenapi
+    build:
+      context: .
+      dockerfile: breakevenApi/Dockerfile
+    ports:
+      - "8081:80"
+    depends_on:
+      - sqldata
+
+  migrations:
+    container_name: service-migrations
+    image: ${DOCKER_REGISTRY-}service-migrations  
+    build:
+      context: .
+      dockerfile: breakevenApi/Dockerfile
+      target: migrations
+    depends_on:
+      - sqldata
+
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - SA_PASSWORD=senha#Segura!?
+      - ACCEPT_EULA=Y
+    volumes:
+      - C:\Users\andre.tivo\source\persistency\breakevenApi:/var/opt/mssql/data
+    ports:
+      - "1450:1433"
