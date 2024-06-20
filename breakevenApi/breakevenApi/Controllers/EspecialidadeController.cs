@@ -1,4 +1,5 @@
 ﻿using breakevenApi.Domain.Entities.Especialidade;
+using breakevenApi.Domain.Entities.ExerceEsp;
 using Microsoft.AspNetCore.Mvc;
 
 namespace breakevenApi.Controllers
@@ -8,10 +9,12 @@ namespace breakevenApi.Controllers
     {
 
         private readonly IEspecialidadeRepository _especialidadeRepository;
+        private readonly IExerceEspRepository _exerceEspRepository;
 
-        public EspecialidadeController(IEspecialidadeRepository especialidadeRepository)
+        public EspecialidadeController(IEspecialidadeRepository especialidadeRepository, IExerceEspRepository exerceEspRepository)
         {
             _especialidadeRepository = especialidadeRepository;
+            _exerceEspRepository = exerceEspRepository;
         }
 
 
@@ -28,6 +31,19 @@ namespace breakevenApi.Controllers
         {
             try{
                 _especialidadeRepository.Create(especialidade);
+                return Ok();
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("/exerce")]
+        public IActionResult CreateExerceEsp([FromBody] ExerceEsp exerceEsp)
+        {
+            try{
+                _exerceEspRepository.Create(exerceEsp);
                 return Ok();
             }catch(Exception e)
             {
