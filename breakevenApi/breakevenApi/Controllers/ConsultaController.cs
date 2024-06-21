@@ -95,7 +95,7 @@ namespace breakevenApi.Controllers
             return Ok(consulta);
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("agenda-consulta")]
         public IActionResult CreateConsulta([FromBody] CreateConsultaDTO createConsultaDTO)
         {

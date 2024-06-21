@@ -37,7 +37,7 @@ namespace breakevenApi.Controllers
         {
             var medic = new Medic(createMedicDTO.Crm, createMedicDTO.Percentual, createMedicDTO.Telefone, createMedicDTO.NomeMedico); 
             try
-            {
+            { 
                 _medicRepository.Create(medic);
                 _exerceEspRepository.Create(new ExerceEsp(medic.Crm, createMedicDTO.CodigoEspecialidade));
                 return Ok();
