@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace breakevenApi.Controllers
 {
 
-    [Route("/paciente")]
+    [Route("paciente")]
     public class PacienteController : Controller 
     {
         private readonly IPacienteRepository _pacienteRepository;
@@ -19,14 +19,14 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("/get/{idPaciente}")]
+        [Route("get/{idPaciente}")]
         public IActionResult GetPacienteById(long idPaciente)
         {
             return Ok(_pacienteRepository.GetByCodigo(idPaciente));
         }
 
         [HttpPut]
-        [Route("/adds-missing-data/")]
+        [Route("adds-missing-data/")]
         public IActionResult FinishesCadastroPaciente([FromBody] FinishesCadastroPacienteDTO pacienteDTO)
         {
             try

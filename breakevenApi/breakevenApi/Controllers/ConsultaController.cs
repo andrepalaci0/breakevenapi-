@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace breakevenApi.Controllers
 {
 
-    [Route("/consulta")]
+    [Route("consulta")]
     public class ConsultaController : Controller
     {
         private readonly IConsultaRepository _consultaRepository;
@@ -20,7 +20,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("/getByMedic/{id}")]
+        [Route("getByMedic/{id}")]
         public IActionResult getConsultasByMedicCrm(long id)
         {
             var consulta = _consultaRepository.GetAllByIdMedico(id);
@@ -32,7 +32,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("/getByMedicName")]
+        [Route("getByMedicName")]
         public IActionResult getConsultaByMedicName(string name)
         {
             var consulta = _consultaService.GetByMedicName(name);
@@ -44,7 +44,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("/cronogram")]
+        [Route("cronogram")]
         public IActionResult GetCrongorama()
         {
             DateOnly data = DateOnly.FromDateTime(DateTime.Now);
@@ -57,7 +57,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("/horariolivre/")]
+        [Route("horariolivre")]
         public IActionResult GetHorarioLivre([FromBody] GetHorarioLivreDTO horarioLivreDTO)
         {
             DateOnly formatteddata = DateOnly.Parse(horarioLivreDTO.Data);
@@ -72,7 +72,7 @@ namespace breakevenApi.Controllers
 
 
         [HttpGet]
-        [Route("/getByPaciente/{id}")]
+        [Route("getByPaciente/{id}")]
         public IActionResult getConsultaByPacienteId(long id)
         {
             var consulta = _consultaRepository.GetByIdPaciente(id);
@@ -84,7 +84,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("/get/")]
+        [Route("get/")]
         public IActionResult getConsulta([FromBody] long IdEspecialidade, [FromBody] long IdPaciente, [FromBody] long IdMedico, [FromBody] string data)
         {
             var consulta = _consultaRepository.GetById(IdEspecialidade, IdPaciente, IdMedico, DateOnly.Parse(data));
@@ -96,7 +96,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpPut]
-        [Route("/agenda-consulta")]
+        [Route("agenda-consulta")]
         public IActionResult CreateConsulta([FromBody] CreateConsultaDTO createConsultaDTO)
         {
             if (createConsultaDTO.NomeMedicoPreferencia.IsNullOrEmpty())
@@ -113,7 +113,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpPatch]
-        [Route("/finaliza")] 
+        [Route("finaliza")] 
         public IActionResult FinishesConsulta([FromBody] FinishesConsultaDTO finishesConsultaDTO)
         {
             try

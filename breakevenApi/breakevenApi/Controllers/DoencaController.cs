@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace breakevenApi.Controllers
 {
-    [Route("/doenca")]
+    [Route("doenca")]
     public class DoencaController : Controller
     {
         private readonly IDoencaRepository _doencaRepository;
@@ -15,7 +15,7 @@ namespace breakevenApi.Controllers
 
 
         [HttpGet]
-        [Route("/get/{idDoenca}")]
+        [Route("get/{idDoenca}")]
         public IActionResult GetDoencaById(long idDoenca)
         {
             try
@@ -31,7 +31,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("/getAll")]
+        [Route("getAll")]
         public IActionResult GetAllDoencas()
         {
             try
@@ -45,7 +45,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpPost]
-        [Route("/create")]
+        [Route("create")]
         public IActionResult CreateDoenca([FromBody] string NomeDoenca)
         {
             try
@@ -60,7 +60,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpDelete]
-        [Route("/delete/{id}")]
+        [Route("delete/{id}")]
         public IActionResult DeleteDoenca(long id)
         {
             try

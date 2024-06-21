@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace breakevenApi.Controllers
 {
-    [Route("/especialidade")]
+    [Route("especialidade")]
     public class EspecialidadeController : Controller
     {
 
@@ -20,7 +20,7 @@ namespace breakevenApi.Controllers
 
 
         [HttpGet]
-        [Route("/get/{idEspecialidade}")]
+        [Route("get/{idEspecialidade}")]
         public IActionResult GetEspecialidadeById(long idEspecialidade)
         {
             return Ok(_especialidadeRepository.GetByCodigo(idEspecialidade));
@@ -39,7 +39,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpPost]
-        [Route("/exerce")]
+        [Route("exerce")]
         public IActionResult CreateExerceEsp([FromBody] ExerceEsp exerceEsp)
         {
             try{

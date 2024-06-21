@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace breakevenApi.Controllers
 {
-    [Route("/medic")]
+    [Route("medic")]
     public class MedicController : Controller
     {
         private readonly IMedicRepository _medicRepository;
@@ -20,7 +20,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("/get/{idMedico}")]
+        [Route("get/{idMedico}")]
         public IActionResult getMedicById(long idMedico)
         {
             var medic = _medicRepository.GetByCrm(idMedico);

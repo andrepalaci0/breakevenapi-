@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace breakevenApi.Controllers
 {
-    [Route("/agenda")]
+    [Route("agenda")]
     public class AgendaController : Controller
     {
         private readonly IAgendaRepository _agendaRepository;
@@ -18,7 +18,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("/get-agenda/{idAgenda}")]
+        [Route("get-agenda/{idAgenda}")]
         public IActionResult GetById(long idAgenda)
         {
             var agenda = _agendaRepository.GetById(idAgenda);
@@ -30,7 +30,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("/medico/{crm}")]
+        [Route("medico/{crm}")]
         public IActionResult GetByMedicCrm(long crm)
         {
             var agenda = _agendaRepository.GetByMedicCrm(crm);
@@ -42,7 +42,6 @@ namespace breakevenApi.Controllers
         }
 
         [HttpPut]
-        [Route("/")]
         public IActionResult CreateAgenda(long crm, [FromBody] AgendaDTO agenda)
         {
             //agenda deve ser definida como disponibilidae por dia da semana
@@ -59,7 +58,6 @@ namespace breakevenApi.Controllers
         }
 
         [HttpPatch]
-        [Route("/")]
         public IActionResult UpdateAgendaByCrmAndDay([FromBody] UpdateAgendaDTO updateAgendaDTO)
         {
             //atualiza a agenda de um medico em um dia da semana
