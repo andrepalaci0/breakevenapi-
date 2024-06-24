@@ -20,15 +20,24 @@ namespace breakevenApi.Controllers
 
 
         [HttpGet]
-        [Route("get/{idEspecialidade}")]
+        [Route("get-by-code/{idEspecialidade}")]
         public IActionResult GetEspecialidadeById(long idEspecialidade)
         {
-            return Ok(_especialidadeRepository.GetByCodigo(idEspecialidade));
+            var especialidade = _especialidadeRepository.GetByCodigo(idEspecialidade);
+            if(especialidade == null)
+            {
+                return NotFound();
+            }
+            return Ok(especialidade);
         }
 
         [HttpPost]
         public IActionResult CreateEspecialidade([FromBody] Especialidade especialidade)
         {
+            var especialidadeExistente = _especialidadeRepository.GetByCodigo(especialidade.Codigo);
+
+            if(especialidadeExistente != null) return BadRequest("Especialidade já cadastrada");
+
             try{
                 _especialidadeRepository.Create(especialidade);
                 return Ok();
