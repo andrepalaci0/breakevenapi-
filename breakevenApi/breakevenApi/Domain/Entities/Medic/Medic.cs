@@ -8,7 +8,8 @@ namespace breakevenApi.Domain.Entities.Medic
     public class Medic
     {
         [Key]
-        [Required]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public long MedicId { get; private set; }
         public long Crm { get; private set; }
 
         [Required]
@@ -20,7 +21,6 @@ namespace breakevenApi.Domain.Entities.Medic
         [Required]
         public string NomeMedico { get; private set; }
 
-        // Constructor to initialize properties
         public Medic(long crm, double percentual, string telefone, string nomeMedico)
         {
             Crm = crm;

@@ -10,9 +10,11 @@ namespace breakevenApi.Domain.Entities.ExerceEsp
     public class ExerceEsp
     {
         [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long IdEsp { get; private set; }
 
         [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long IdMedico { get; private set; }
 
 
