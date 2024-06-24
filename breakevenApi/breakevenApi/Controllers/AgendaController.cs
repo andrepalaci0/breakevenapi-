@@ -18,8 +18,8 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("get-agenda/{idAgenda}")]
-        public IActionResult GetById(long idAgenda)
+        [Route("get-agenda/")]
+        public IActionResult GetById([FromQuery] long idAgenda)
         {
             var agenda = _agendaRepository.GetById(idAgenda);
             if (agenda == null)
@@ -30,8 +30,8 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("medico/{crm}")]
-        public IActionResult GetByMedicCrm(long crm)
+        [Route("medic/")]
+        public IActionResult GetByMedicCrm([FromQuery] long crm)
         {
             var agenda = _agendaRepository.GetByMedicCrm(crm);
             if (agenda == null)
@@ -41,16 +41,22 @@ namespace breakevenApi.Controllers
             return Ok(agenda);
         }
 
-        [HttpPut]
-        public IActionResult CreateAgenda(long crm, [FromBody] AgendaDTO agenda)
+        [HttpPost]
+        public IActionResult CreateAgenda([FromBody] AgendaDTO agenda)
         {
             //agenda deve ser definida como disponibilidae por dia da semana
             //ex: segunda 8h as 12h, terça 14h as 18h
+            DayOfWeek dayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), agenda.DiaDaSemana);
+            var agendaExistente = _agendaRepository.GetByMedicCrmAndDay(agenda.IdMedico, dayOfWeek);
+            if (agendaExistente != null)
+            {
+                return BadRequest("Agenda já cadastrada");
+            }
             if (agenda == null)
             {
                 return BadRequest();
             }
-            if(!_agendaService.CreateAgenda(crm, agenda))
+            if(!_agendaService.CreateAgenda(agenda))
             {
                 return BadRequest();
             }
