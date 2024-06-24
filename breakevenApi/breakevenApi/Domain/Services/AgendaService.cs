@@ -20,8 +20,9 @@ namespace breakevenApi.Domain.Services
             _logger = logger;
         }
 
-        public bool CreateAgenda(long crm, AgendaDTO agenda)
+        public bool CreateAgenda(AgendaDTO agenda)
         {
+            long crm = agenda.IdMedico;
             var medic = _medicRepository.GetByCrm(crm);
             if (medic == null)
             {
