@@ -20,10 +20,10 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("get/{idMedico}")]
-        public IActionResult getMedicById(long idMedico)
+        [Route("get/")]
+        public IActionResult getMedicById([FromQuery] long crm)
         {
-            var medic = _medicRepository.GetByCrm(idMedico);
+            var medic = _medicRepository.GetByCrm(crm);
             if (medic == null )
             {
                 return NotFound(); 

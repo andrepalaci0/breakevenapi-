@@ -20,10 +20,10 @@ namespace breakevenApi.Controllers
 
 
         [HttpGet]
-        [Route("get-by-code/{idEspecialidade}")]
-        public IActionResult GetEspecialidadeById(long idEspecialidade)
+        [Route("get-by-code/")]
+        public IActionResult GetEspecialidadeById([FromQuery] long codigoEspecialidade)
         {
-            var especialidade = _especialidadeRepository.GetByCodigo(idEspecialidade);
+            var especialidade = _especialidadeRepository.GetByCodigo(codigoEspecialidade);
             if(especialidade == null)
             {
                 return NotFound();
