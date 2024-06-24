@@ -26,7 +26,8 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<DataContext>(options =>
-        options.UseSqlServer(connectionString));
+        options.UseSqlServer(connectionString),
+        ServiceLifetime.Transient);
 
 builder.Services.AddScoped<IAgendaRepository, AgendaRepository>();
 builder.Services.AddScoped<IConsultaRepository, ConsultaRepository>();

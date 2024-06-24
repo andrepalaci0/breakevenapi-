@@ -35,7 +35,11 @@ namespace breakevenApi.Controllers
         [HttpPost]
         public IActionResult CreateMedic([FromBody] CreateMedicDTO createMedicDTO)
         {
-            var medic = new Medic(createMedicDTO.Crm, createMedicDTO.Percentual, createMedicDTO.Telefone, createMedicDTO.NomeMedico); 
+            var medic = _medicRepository.GetByCrm(createMedicDTO.Crm);
+
+            if(medic != null) return BadRequest("Medico já cadastrado");
+
+            medic = new Medic(createMedicDTO.Crm, createMedicDTO.Percentual, createMedicDTO.Telefone, createMedicDTO.NomeMedico); 
             try
             { 
                 _medicRepository.Create(medic);
