@@ -15,12 +15,14 @@ namespace breakevenApi.Controllers
 
 
         [HttpGet]
-        [Route("get/{idDoenca}")]
-        public IActionResult GetDoencaById(long idDoenca)
+        [Route("get/")]
+        public IActionResult GetDoencaById([FromQuery] long idDoenca)
         {
             try
             {
-                return Ok(_doencaRepository.GetById(idDoenca));
+                var doenca = _doencaRepository.GetById(idDoenca);
+                if (doenca == null) return NotFound("Doenca nao encontrada");
+                return Ok(doenca);
             
             }
             catch(Exception e)
@@ -31,7 +33,7 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("getAll")]
+        [Route("get-all")]
         public IActionResult GetAllDoencas()
         {
             try
@@ -60,8 +62,8 @@ namespace breakevenApi.Controllers
         }
 
         [HttpDelete]
-        [Route("delete/{id}")]
-        public IActionResult DeleteDoenca(long id)
+        [Route("delete/")]
+        public IActionResult DeleteDoenca([FromQuery] long id)
         {
             try
             {
