@@ -39,7 +39,7 @@ The Docker engine will create a bundle with 3 images:
 
 ## Endpoints
 
-All endpoints are listed in the Swagger documentation, which can be accessed at `https://localhost:64603/swagger/index.html`. Here are the most important ones:
+All endpoints are listed in the Swagger documentation, which can be accessed at `https://localhost:5000/swagger/index.html`. Here are the most important ones:
 
 * `/paciente/adds-missing-data`: Used before the consultation starts if the patient is new and missing some data.
 * `/consulta/cronograma`: Retrieves a list of all appointments today, with information about all the doctors, patients, and the appointment times.
