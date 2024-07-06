@@ -1,26 +1,31 @@
-version: '3.4'
+version: '3.8'
 
 services:
   breakevenapi:
     container_name: breakevenapi
-    image: ${DOCKER_REGISTRY-}breakevenapi
+    image: ${DOCKER_REGISTRY:-}breakevenapi
     build:
       context: .
       dockerfile: breakevenApi/Dockerfile
     ports:
-      - "5000:80"
+      - "5000:5000"
     environment:
+      - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=sqldata,1433;User Id=sa;Password=senha#Segura!?;TrustServerCertificate=True; 
     depends_on:
-      - sqldata
-
+      sqldata:
+        condition: service_healthy    
 
   sqldata:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       - SA_PASSWORD=senha#Segura!?
-      - ACCEPT_EULA=Y       
-    volumes:
-      - C:\Users\andre.tivo\source\persistency\breakevenApi:/var/opt/mssql/data
+      - ACCEPT_EULA=Y
     ports:
       - "1450:1433"
+    healthcheck:
+      test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-U sa -P senha#Segura!? -Q \"SELECT 1\"" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    

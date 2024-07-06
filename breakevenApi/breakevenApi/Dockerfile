@@ -25,11 +25,8 @@ FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./breakevenApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-FROM base AS final
+FROM publish AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
-# Run Entity Framework migrations
-RUN dotnet tool install --version 5.0 --global dotnet-ef
-ENV PATH="$PATH:/root/.dotnet/tools"
-ENTRYPOINT ["dotnet", "ef", "database", "update", "--project", "breakevenApi", "--startup-project", "breakevenApi"]
+ENTRYPOINT ["dotnet", "breakevenApi.dll"]
+#ENTRYPOINT ["dotnet", "ef", "database", "update", "--project", "./breakevenApi.csproj", "--startup-project", "breakevenApi"]

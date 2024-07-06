@@ -38,7 +38,7 @@ namespace breakevenApi.tests
 
         _mockMedicRepository.Setup(repo => repo.GetByCrm(crm)).Returns(new Medic(crm, 0, "Test Phone", "TestName"));
 
-        var result = _agendaService.CreateAgenda(crm, agendaDto);
+        var result = _agendaService.CreateAgenda(agendaDto);
 
         Assert.True(result);
         _mockAgendaRepository.Verify(repo => repo.Create(It.IsAny<Agenda>()), Times.Once);
@@ -52,7 +52,7 @@ namespace breakevenApi.tests
 
         _mockMedicRepository.Setup(repo => repo.GetByCrm(crm)).Returns((Medic)null);
 
-        var result = _agendaService.CreateAgenda(crm, agendaDto);
+        var result = _agendaService.CreateAgenda(agendaDto);
 
         Assert.False(result);
         _mockAgendaRepository.Verify(repo => repo.Create(It.IsAny<Agenda>()), Times.Never);
