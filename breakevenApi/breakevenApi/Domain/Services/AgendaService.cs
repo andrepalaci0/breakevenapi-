@@ -31,8 +31,8 @@ namespace breakevenApi.Domain.Services
             }
             try
             {
-                TimeOnly horaInicio = TimeOnly.Parse(agenda.HoraInicio);
-                TimeOnly horaFim = TimeOnly.Parse(agenda.HoraFim);
+                TimeOnly horaInicio = agenda.HoraInicio;
+                TimeOnly horaFim = agenda.HoraFim;
                 DayOfWeek dayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), agenda.DiaDaSemana);
 
                 if (!ValidateDates(horaInicio, horaFim, dayOfWeek)) return false;
@@ -78,12 +78,12 @@ namespace breakevenApi.Domain.Services
 
         public bool ValidateDates(TimeOnly horaInicio, TimeOnly horaFim, DayOfWeek dia)
         {
-            if (horaInicio >= horaFim)
+            if (horaInicio.CompareTo(horaFim) > 0)
             {
                 _logger.LogError("Hora de inicio não pode ser maior ou igual a hora de fim");
                 return false;
             }
-            if (dia < DayOfWeek.Sunday || dia > DayOfWeek.Saturday)
+            if (dia == DayOfWeek.Sunday || dia == DayOfWeek.Saturday)
             {
                 _logger.LogError("Dia da semana inválido");
                 return false;
