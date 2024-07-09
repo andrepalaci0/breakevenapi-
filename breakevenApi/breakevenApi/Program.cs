@@ -27,7 +27,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContext<DataContext>(options =>
         options.UseSqlServer(connectionString),
-        ServiceLifetime.Transient);
+        ServiceLifetime.Singleton);
 
 builder.Services.AddScoped<IAgendaRepository, AgendaRepository>();
 builder.Services.AddScoped<IConsultaRepository, ConsultaRepository>();

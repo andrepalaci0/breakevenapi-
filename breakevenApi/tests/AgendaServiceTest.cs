@@ -34,7 +34,7 @@ namespace breakevenApi.tests
     public void CreateAgenda_ValidData_ReturnsTrue()
     {
         long crm = 12345;
-        var agendaDto = new AgendaDTO(crm, "08:00", "17:00", "Monday");
+        var agendaDto = new AgendaDTO(crm, new TimeOnly(8, 0), new TimeOnly(17, 0), "Monday");
 
         _mockMedicRepository.Setup(repo => repo.GetByCrm(crm)).Returns(new Medic(crm, 0, "Test Phone", "TestName"));
 
@@ -48,7 +48,7 @@ namespace breakevenApi.tests
     public void CreateAgenda_MedicNotFound_ReturnsFalse()
     {
         var crm = 12345;
-        var agendaDto = new AgendaDTO (crm, "08:00", "17:00", "Monday");
+        var agendaDto = new AgendaDTO(crm, new TimeOnly(8, 0), new TimeOnly(17, 0), "Monday");
 
         _mockMedicRepository.Setup(repo => repo.GetByCrm(crm)).Returns((Medic)null);
 

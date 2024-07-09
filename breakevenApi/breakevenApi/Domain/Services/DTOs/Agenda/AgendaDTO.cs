@@ -3,11 +3,16 @@
     public class AgendaDTO
     {
         public long IdMedico { get; set; }
-        public string HoraInicio { get; set; }
-        public string HoraFim { get; set; }
+        public TimeOnly HoraInicio { get; set; }
+        public TimeOnly HoraFim { get; set; }
         public string DiaDaSemana { get; set; }
 
-        public AgendaDTO(long idMedico, string horaInicio, string horaFim, string diaDaSemana)
+        public AgendaDTO()
+        {
+            
+        }
+
+        public AgendaDTO(long idMedico, TimeOnly horaInicio, TimeOnly horaFim, string diaDaSemana)
         {
             IdMedico = idMedico;
             HoraInicio = horaInicio;

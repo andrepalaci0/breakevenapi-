@@ -42,10 +42,12 @@ namespace breakevenApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateAgenda([FromBody] AgendaDTO agenda)
+        public IActionResult CreateAgenda(AgendaDTO agenda)
         {
             //agenda deve ser definida como disponibilidae por dia da semana
+            //dias da semana devem estar em ingles 
             //ex: segunda 8h as 12h, terça 14h as 18h
+            Console.WriteLine("AGENDA: " + agenda);
             DayOfWeek dayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), agenda.DiaDaSemana);
             var agendaExistente = _agendaRepository.GetByMedicCrmAndDay(agenda.IdMedico, dayOfWeek);
             if (agendaExistente != null)
