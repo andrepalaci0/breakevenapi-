@@ -9,6 +9,7 @@ namespace breakevenApi.Domain.Services.DTOs.Medic
         public string Telefone { get; private set; }
         public string NomeMedico { get; private set; }
         public long CodigoEspecialidade { get; private set; }
+        
 
         public CreateMedicDTO(long crm, double percentual, string telefone, string nomeMedico, long codigoEspecialidade)
         {
@@ -18,5 +19,6 @@ namespace breakevenApi.Domain.Services.DTOs.Medic
             NomeMedico = nomeMedico;
             CodigoEspecialidade = codigoEspecialidade;
         }
+        
     }
 }

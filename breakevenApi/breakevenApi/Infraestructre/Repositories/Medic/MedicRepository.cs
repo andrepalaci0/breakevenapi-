@@ -1,4 +1,5 @@
 ﻿using breakevenApi.Domain.Entities.Medic;
+using Microsoft.EntityFrameworkCore;
 
 namespace breakevenApi.Infraestructre.Repositories;
 
@@ -22,9 +23,9 @@ public class MedicRepository : IMedicRepository
         return _context.Medics.FirstOrDefault(m => m.Crm == crm);
     }
 
-    public Medic GetByName(string name)
+    public async Task<Medic> GetByName(string name)
     {
-        return _context.Medics.FirstOrDefault(m => m.NomeMedico == name);
+        return await _context.Medics.FirstOrDefaultAsync(m => m.NomeMedico == name);
     }
 
     public List<Medic> GetAll()

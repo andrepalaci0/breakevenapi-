@@ -29,6 +29,7 @@ builder.Services.AddDbContext<DataContext>(options =>
         options.UseSqlServer(connectionString),
         ServiceLifetime.Singleton);
 
+
 builder.Services.AddScoped<IAgendaRepository, AgendaRepository>();
 builder.Services.AddScoped<IConsultaRepository, ConsultaRepository>();
 builder.Services.AddScoped<IDiagnosticaRepository, DiagnosticaRepository>();

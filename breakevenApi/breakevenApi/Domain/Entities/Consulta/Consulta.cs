@@ -18,9 +18,9 @@ namespace breakevenApi.Domain.Entities.Consulta
         public long IdDiagnostico { get; set; }
 
         [Required]
-        public DateTime HoraInicioConsulta { get; set; }
+        public TimeOnly HoraInicioConsulta { get; set; }
 
-        public DateTime HoraFimConsulta { get; set; }
+        public TimeOnly HoraFimConsulta { get; set; }
 
         public bool Paga { get; set; }
 
@@ -31,7 +31,7 @@ namespace breakevenApi.Domain.Entities.Consulta
         // Constructor to initialize properties
 
         public Consulta() { }
-        public Consulta(long idEspecialidade, long idPaciente, long idMedico, DateOnly data, DateTime horaInicioConsulta, DateTime horaFimConsulta, bool paga, MetodosPagamento? formaPagamento, float? valorPagamento)
+        public Consulta(long idEspecialidade, long idPaciente, long idMedico, DateOnly data, TimeOnly horaInicioConsulta, TimeOnly horaFimConsulta, bool paga, MetodosPagamento? formaPagamento, float? valorPagamento)
         {
             IdEspecialidade = idEspecialidade;
             IdPaciente = idPaciente;

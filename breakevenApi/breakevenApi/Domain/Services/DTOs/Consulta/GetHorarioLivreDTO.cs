@@ -3,9 +3,9 @@
     public class GetHorarioLivreDTO
     {
         public long IdMedico { get; set; }
-        public string Data { get; set; }
+        public DateOnly Data { get; set; }
 
-        public GetHorarioLivreDTO(long idMedico, string data)
+        public GetHorarioLivreDTO(long idMedico, DateOnly data)
         {
             IdMedico = idMedico;
             Data = data;

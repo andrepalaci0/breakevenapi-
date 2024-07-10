@@ -12,11 +12,11 @@
 
         public DateOnly DataConsulta { get; set; }
 
-        public DateTime HoraInicio { get; set; }
-        public DateTime HoraFim { get; set; }
+        public TimeOnly HoraInicio { get; set; }
+        public TimeOnly HoraFim { get; set; }
         public string? NomeMedicoPreferencia { get; set; }
 
-        public CreateConsultaDTO(string nomePaciente, string telefonePaciente, string cpfPaciente, long codigoEspecialidade, DateOnly dataConsulta, DateTime horaInicio, DateTime horaFim, string? nomeMedicoPreferencia)
+        public CreateConsultaDTO(string nomePaciente, string telefonePaciente, string cpfPaciente, long codigoEspecialidade, DateOnly dataConsulta, TimeOnly horaInicio, TimeOnly horaFim, string? nomeMedicoPreferencia)
         {
             NomePaciente = nomePaciente;
             TelefonePaciente = telefonePaciente;
@@ -26,6 +26,11 @@
             HoraInicio = horaInicio;
             HoraFim = horaFim;
             NomeMedicoPreferencia = nomeMedicoPreferencia;
+        }
+
+        public CreateConsultaDTO()
+        {
+            
         }
 
     }

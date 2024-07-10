@@ -1,5 +1,6 @@
 ﻿using breakevenApi.Domain.Entities.Especialidade;
 using breakevenApi.Domain.Entities.ExerceEsp;
+using breakevenApi.Domain.Services.DTOs.Especialidade;
 using Microsoft.AspNetCore.Mvc;
 
 namespace breakevenApi.Controllers
@@ -32,14 +33,14 @@ namespace breakevenApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateEspecialidade([FromBody] Especialidade especialidade)
+        public IActionResult CreateEspecialidade([FromBody] EspecialidadeDTO especialidadeDto)
         {
-            var especialidadeExistente = _especialidadeRepository.GetByCodigo(especialidade.Codigo);
+            var especialidadeExistente = _especialidadeRepository.GetByCodigo(especialidadeDto.Codigo);
 
             if(especialidadeExistente != null) return BadRequest("Especialidade já cadastrada");
 
             try{
-                _especialidadeRepository.Create(especialidade);
+                _especialidadeRepository.Create(new Especialidade(especialidadeDto.Codigo, especialidadeDto.Indice, especialidadeDto.Nome));
                 return Ok();
             }catch(Exception e)
             {

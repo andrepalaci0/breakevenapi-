@@ -7,7 +7,7 @@ namespace breakevenApi.Domain.Services.DTOs.Consulta
     {
         public string NomeMedico { get; set; }
         public DateOnly DataConsulta { get; set; }
-        public DateTime HoraInicioConsulta { get; set; }
+        public TimeOnly HoraInicioConsulta { get; set; }
 
         public string Especialidade { get; set; }
 
@@ -16,7 +16,7 @@ namespace breakevenApi.Domain.Services.DTOs.Consulta
 
         public List<HistoricoPaciente> HistoricoPaciente { get; set; }
 
-        public RelatorioCronogramaConsultaDTO(string nomeMedico, DateOnly dataConsulta, DateTime horaInicioConsulta, string especialidade, string nomePaciente, string telefonePaciente, List<HistoricoPaciente> historicoPaciente)
+        public RelatorioCronogramaConsultaDTO(string nomeMedico, DateOnly dataConsulta, TimeOnly horaInicioConsulta, string especialidade, string nomePaciente, string telefonePaciente, List<HistoricoPaciente> historicoPaciente)
         {
             NomeMedico = nomeMedico;
             DataConsulta = dataConsulta;
