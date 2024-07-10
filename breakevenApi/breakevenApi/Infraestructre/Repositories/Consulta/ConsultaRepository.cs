@@ -11,7 +11,7 @@ namespace breakevenApi.Infraestructre.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task Create(Consulta consulta)
+        public void Create(Consulta consulta)
         {
             if (consulta == null)
             {
@@ -19,7 +19,7 @@ namespace breakevenApi.Infraestructre.Repositories
             }
 
             _context.Consultas.Add(consulta);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
 

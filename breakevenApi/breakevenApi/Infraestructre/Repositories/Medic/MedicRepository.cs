@@ -12,10 +12,10 @@ public class MedicRepository : IMedicRepository
         _context = context;
     }
 
-    public async Task Create(Medic medic)
+    public void Create(Medic medic)
     {
         _context.Medics.Add(medic);
-        await _context.SaveChangesAsync();
+         _context.SaveChanges();
     }
 
     public Medic GetByCrm(long crm)
@@ -23,9 +23,9 @@ public class MedicRepository : IMedicRepository
         return _context.Medics.FirstOrDefault(m => m.Crm == crm);
     }
 
-    public async Task<Medic> GetByName(string name)
+    public Medic GetByName(string name)
     {
-        return await _context.Medics.FirstOrDefaultAsync(m => m.NomeMedico == name);
+        return _context.Medics.FirstOrDefault(m => m.NomeMedico == name);
     }
 
     public List<Medic> GetAll()

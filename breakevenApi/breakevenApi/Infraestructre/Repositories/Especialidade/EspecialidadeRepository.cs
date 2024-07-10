@@ -11,7 +11,7 @@ namespace breakevenApi.Infraestructre.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task Create(Especialidade especialidade)
+        public void Create(Especialidade especialidade)
         {
             if (especialidade == null)
             {
@@ -19,7 +19,7 @@ namespace breakevenApi.Infraestructre.Repositories
             }
 
             _context.Especialidades.Add(especialidade);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public Especialidade GetByCodigo(long codigo)

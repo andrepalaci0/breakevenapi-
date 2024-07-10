@@ -23,9 +23,13 @@ services:
       - ACCEPT_EULA=Y
     ports:
       - "1450:1433"
+    volumes:
+      - myData:/persistency
     healthcheck:
       test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-U sa -P senha#Segura!? -Q \"SELECT 1\"" ]
       interval: 10s
       timeout: 5s
       retries: 5
-    
+  
+volumes:
+  myData:

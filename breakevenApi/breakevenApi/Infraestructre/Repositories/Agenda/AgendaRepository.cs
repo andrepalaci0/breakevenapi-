@@ -12,10 +12,10 @@ public class AgendaRepository : IAgendaRepository
         _context = context;
     }
 
-    public async Task Create(Agenda agenda)
+    public void Create(Agenda agenda)
     {
         _context.Agendas.Add(agenda);
-        await _context.SaveChangesAsync();
+        _context.SaveChanges();
     }
 
     public void Delete(long id)

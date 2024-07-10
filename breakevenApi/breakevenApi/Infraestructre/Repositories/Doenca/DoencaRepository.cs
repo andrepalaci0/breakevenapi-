@@ -11,7 +11,7 @@ namespace breakevenApi.Infraestructre.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task Create(Doenca doenca)
+        public void Create(Doenca doenca)
         {
             if (doenca == null) 
             {
@@ -19,7 +19,7 @@ namespace breakevenApi.Infraestructre.Repositories
             }
 
             _context.Doencas.Add(doenca);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public Doenca GetById(long id)

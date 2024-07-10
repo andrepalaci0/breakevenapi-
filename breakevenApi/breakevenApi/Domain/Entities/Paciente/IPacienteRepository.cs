@@ -2,7 +2,7 @@
 
 public interface IPacienteRepository
 {
-    Task Create(Paciente paciente);
+    void Create(Paciente paciente);
     Paciente GetByCodigo(long codigoPaciente);
     Paciente GetByCpf(string cpf);
     List<Paciente> GetAll();

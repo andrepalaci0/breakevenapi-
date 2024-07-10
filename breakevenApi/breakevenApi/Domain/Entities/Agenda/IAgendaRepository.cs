@@ -5,7 +5,7 @@ namespace breakevenApi.Domain.Entities.Agenda
 {
     public interface IAgendaRepository
     {
-        Task Create(Agenda agenda);
+        void Create(Agenda agenda);
         Agenda GetById(long id);
         List<Agenda> GetAll();
         void Update(Agenda agenda);

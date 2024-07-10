@@ -50,7 +50,7 @@ namespace breakevenApi.Domain.Services
         public List<Consulta> GetByMedicName(string name)
         {
 
-            var medic = _medicoRepository.GetByName(name).Result;
+            var medic = _medicoRepository.GetByName(name);
             if (medic == null)
             {
                 return null;
@@ -60,7 +60,7 @@ namespace breakevenApi.Domain.Services
 
         public bool FinishesConsulta(FinishesConsultaDTO finishesConsultaDTO)
         {
-            DateOnly formatteddata = finishesConsultaDTO.Data;
+            DateOnly formatteddata = finishesConsultaDTO.getDataConsulta();
 
             var consulta = _consultaRepository.GetById(finishesConsultaDTO.IdEsp, finishesConsultaDTO.IdPaciente, finishesConsultaDTO.IdMedico, formatteddata);
             
@@ -69,7 +69,7 @@ namespace breakevenApi.Domain.Services
                 _logger.LogError("Consulta não encontrada");
                 return false;
             }
-            consulta.HoraFimConsulta = (TimeOnly) finishesConsultaDTO.HoraFimConsulta;
+            consulta.HoraFimConsulta = finishesConsultaDTO.getHoraFim();
 
             var diagnostico = finishesConsultaDTO.Diagnostico;
             Diagnostico newDiagnostico = new Diagnostico(
@@ -208,6 +208,7 @@ namespace breakevenApi.Domain.Services
 
         public bool AddHistorico(Consulta consulta)
         {
+            return true;
             var historico = _historicoPacienteRepository.GetById(consulta.IdPaciente, consulta.GetId());
             if (historico == null)
             {
@@ -255,18 +256,21 @@ namespace breakevenApi.Domain.Services
 
         public async Task<bool> CreateConsulta(CreateConsultaDTO createConsultaDTO)
         {
-            var medic = await _medicoRepository.GetByName(createConsultaDTO.NomeMedicoPreferencia);
-            if (!IsTimeSlotAvailable(createConsultaDTO.HoraInicio, createConsultaDTO.HoraFim, medic.Crm, createConsultaDTO.DataConsulta))
+            var medic = _medicoRepository.GetByName(createConsultaDTO.NomeMedicoPreferencia);
+            if (!IsTimeSlotAvailable(createConsultaDTO.getHoraInicio(), createConsultaDTO.getHoraFim(), medic.Crm, createConsultaDTO.getDataConsulta()))
             {
                 return false; 
             }
+
+            var auxData = createConsultaDTO.getDataConsulta();
+            Console.WriteLine("DATA: " + auxData);
             var newConsulta = new Consulta(
                 _especialidadeRepository.GetByCodigo(createConsultaDTO.CodigoEspecialidade).Codigo,
                 _pacienteRepository.GetByCpf(createConsultaDTO.CPFPaciente).CodigoPaciente,
                 medic.Crm,
-                new DateOnly(createConsultaDTO.DataConsulta.Year, createConsultaDTO.DataConsulta.Month, createConsultaDTO.DataConsulta.Day),
-                createConsultaDTO.HoraInicio,
-                createConsultaDTO.HoraFim,
+                auxData,
+                createConsultaDTO.getHoraInicio(),
+                createConsultaDTO.getHoraFim(),
                 false,
                 null,
                 null

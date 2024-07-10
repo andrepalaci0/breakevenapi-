@@ -11,10 +11,10 @@ namespace breakevenApi.Infraestructre.Repositories
             _context = context;
         }
 
-        public async Task Create(ExerceEsp exerceEsp)
+        public void Create(ExerceEsp exerceEsp)
         {
             _context.ExerceEsp.Add(exerceEsp);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public ExerceEsp GetById(long idEsp, long idMedico)

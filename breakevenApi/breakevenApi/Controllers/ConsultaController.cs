@@ -117,7 +117,7 @@ namespace breakevenApi.Controllers
 
         [HttpPatch]
         [Route("finaliza")] 
-        public IActionResult FinishesConsulta([FromBody] FinishesConsultaDTO finishesConsultaDTO)
+        public IActionResult FinishesConsulta(FinishesConsultaDTO finishesConsultaDTO)
         {
             try{
                 

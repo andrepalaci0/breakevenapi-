@@ -51,12 +51,16 @@ namespace breakevenApi.Domain.Entities.Paciente
             Sexo = sexo;
             Endereco = endereco;
             DataNascimento = datanascimento;
+            Idade = this.GetIdade();
         }
 
         public Paciente(string nomePaciente, string telefonePaciente, string cpfPaciente) { 
             NomePaciente = nomePaciente;
             Telefone = telefonePaciente;
             Cpf = cpfPaciente;
+            Endereco = "vazio";
+            Sexo = Sexo.INDEFINIDO;
+            DataNascimento = DateTime.Now;
         }   
 
         private int GetIdade()

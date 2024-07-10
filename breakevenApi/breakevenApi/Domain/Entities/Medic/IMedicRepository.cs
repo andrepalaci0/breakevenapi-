@@ -5,9 +5,9 @@ namespace breakevenApi.Domain.Entities.Medic
 {
     public interface IMedicRepository
     {
-        Task Create(Medic medic);
+        void Create(Medic medic);
         Medic? GetByCrm(long crm); 
-        Task<Medic?>  GetByName(string name);
+        Medic GetByName(string name);
         List<Medic>? GetAll();
         List<Medic>? GetByEspecialidade(long IdEspecialidade);
         List<Medic>? GetByEspecialidade(string nomeEspecialidade);

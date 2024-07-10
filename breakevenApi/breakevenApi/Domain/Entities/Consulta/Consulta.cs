@@ -46,7 +46,7 @@ namespace breakevenApi.Domain.Entities.Consulta
 
         public long GetId()
         {
-            return IdEspecialidade + IdPaciente + IdMedico + Data.Day;
+            return long.Parse($"{IdEspecialidade}{IdPaciente}{IdMedico}{Data.Day}");
         }
     }
 }

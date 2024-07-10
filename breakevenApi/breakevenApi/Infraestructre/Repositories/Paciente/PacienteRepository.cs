@@ -12,10 +12,10 @@ public class PacienteRepository : IPacienteRepository
         _context = context;
     }
 
-    public async Task Create(Paciente paciente)
+    public void Create(Paciente paciente)
     {
         _context.Pacientes.Add(paciente);
-        await _context.SaveChangesAsync();
+        _context.SaveChanges();
     }
 
     public Paciente GetByCodigo(long codigoPaciente)

@@ -2,6 +2,7 @@
 using breakevenApi.Domain.Entities.Consulta;
 using breakevenApi.Domain.Entities.Medic;
 using breakevenApi.Domain.Services.DTOs.Agenda;
+using Microsoft.AspNetCore.Mvc;
 
 namespace breakevenApi.Domain.Services
 {
@@ -31,8 +32,9 @@ namespace breakevenApi.Domain.Services
             }
             try
             {
-                TimeOnly horaInicio = agenda.HoraInicio;
-                TimeOnly horaFim = agenda.HoraFim;
+                TimeOnly horaInicio = agenda.getHoraInicio();
+                Console.WriteLine("HORA INICIO" + agenda.HoraInicio);
+                TimeOnly horaFim = agenda.getHoraFim();
                 DayOfWeek dayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), agenda.DiaDaSemana);
 
                 if (!ValidateDates(horaInicio, horaFim, dayOfWeek)) return false;
