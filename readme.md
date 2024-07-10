@@ -18,11 +18,20 @@ Simply type:
 ```sh
 docker-compose up -d
 ```
+If you want to build the images before running, use:
+```sh
+docker-compose up --build -d
+```
+
+To end the application, type:
+```sh  
+docker-compose down
+```
+
 (`-d` is optional for detached mode)
 
 The Docker engine will create a bundle with 3 images:
 * `sqldata-1`: The SQL Server instance used by the API.
-* `service-migrations`: Instance responsible for running the database migrations (may be deprecated, needs further investigation).
 * `breakevenapi`: The application instance itself, responsible for handling API requests.
 
 ## Features
