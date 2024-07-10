@@ -11,7 +11,7 @@ services:
       - "5000:5000"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqldata,1433;User Id=sa;Password=senha#Segura!?;TrustServerCertificate=True; 
+      - ConnectionStrings__DefaultConnection=Server=sqldata,1433;Database=master;User Id=sa;Password=senha#Segura!?;TrustServerCertificate=True; 
     depends_on:
       sqldata:
         condition: service_healthy    
@@ -23,9 +23,13 @@ services:
       - ACCEPT_EULA=Y
     ports:
       - "1450:1433"
+    volumes:
+      - myData:/persistency
     healthcheck:
       test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-U sa -P senha#Segura!? -Q \"SELECT 1\"" ]
       interval: 10s
       timeout: 5s
       retries: 5
-    
+  
+volumes:
+  myData:

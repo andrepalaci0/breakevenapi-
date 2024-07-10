@@ -20,8 +20,8 @@ namespace breakevenApi.Controllers
         }
 
         [HttpGet]
-        [Route("getByMedic/{id}")]
-        public IActionResult getConsultasByMedicCrm(long id)
+        [Route("getByMedic")]
+        public IActionResult getConsultasByMedicCrm([FromQuery]long id)
         {
             var consulta = _consultaRepository.GetAllByIdMedico(id);
             if (consulta == null)
@@ -58,10 +58,11 @@ namespace breakevenApi.Controllers
 
         [HttpGet]
         [Route("horariolivre")]
-        public IActionResult GetHorarioLivre([FromBody] GetHorarioLivreDTO horarioLivreDTO)
+        public IActionResult GetHorarioLivre([FromQuery] long IdMedico, [FromQuery] DateOnly Data)
         {
-            DateOnly formatteddata = DateOnly.Parse(horarioLivreDTO.Data);
-            var horario = _consultaService.GetHorariosLivres(formatteddata, horarioLivreDTO.IdMedico);
+            //DateOnly formatteddata = DateOnly.Parse(horarioLivreDTO.Data);
+            
+            var horario = _consultaService.GetHorariosLivres(Data, IdMedico);
             if (horario == null)
             {
                 return NotFound("Não há horários livres com esse médico nesse dia.");
@@ -72,8 +73,8 @@ namespace breakevenApi.Controllers
 
 
         [HttpGet]
-        [Route("getByPaciente/{id}")]
-        public IActionResult getConsultaByPacienteId(long id)
+        [Route("getByPaciente")]
+        public IActionResult getConsultaByPacienteId([FromQuery]long id)
         {
             var consulta = _consultaRepository.GetByIdPaciente(id);
             if (consulta == null)
@@ -85,9 +86,9 @@ namespace breakevenApi.Controllers
 
         [HttpGet]
         [Route("get/")]
-        public IActionResult getConsulta([FromBody] long IdEspecialidade, [FromBody] long IdPaciente, [FromBody] long IdMedico, [FromBody] string data)
+        public IActionResult getConsulta([FromQuery] long IdEspecialidade, [FromQuery] long IdPaciente, [FromQuery] long IdMedico, [FromQuery] DateOnly data)
         {
-            var consulta = _consultaRepository.GetById(IdEspecialidade, IdPaciente, IdMedico, DateOnly.Parse(data));
+            var consulta = _consultaRepository.GetById(IdEspecialidade, IdPaciente, IdMedico, data);
             if (consulta == null)
             {
                 return NotFound();
@@ -97,29 +98,31 @@ namespace breakevenApi.Controllers
 
         [HttpPost]
         [Route("agenda-consulta")]
-        public IActionResult CreateConsulta([FromBody] CreateConsultaDTO createConsultaDTO)
+        public IActionResult CreateConsulta(CreateConsultaDTO createConsultaDTO)
         {
+            /*
             if (createConsultaDTO.NomeMedicoPreferencia.IsNullOrEmpty())
             {
                 var possibleMedics = _consultaService.GetMedicsByEspecialidade(createConsultaDTO.CodigoEspecialidade);
                 return BadRequest("É necessário definir o médico que realizará a consulta. Escolha os médicos disponíveis na lista: " + possibleMedics);
             }
+            */
 
             if (!_consultaService.InitialCadastroPaciente(createConsultaDTO)) return BadRequest("Erro ao cadastrar paciente");
       
-            if (!_consultaService.CreateConsulta(createConsultaDTO)) return BadRequest("Erro ao criar consulta");
+            if (!_consultaService.CreateConsulta(createConsultaDTO).Result) return BadRequest("Erro ao criar consulta");
 
             return Ok();
         }
 
         [HttpPatch]
         [Route("finaliza")] 
-        public IActionResult FinishesConsulta([FromBody] FinishesConsultaDTO finishesConsultaDTO)
+        public IActionResult FinishesConsulta(FinishesConsultaDTO finishesConsultaDTO)
         {
-            try
-            {
-            DateOnly formatteddata = DateOnly.Parse(finishesConsultaDTO.Data);
+            try{
+                
             var consulta = _consultaService.FinishesConsulta(finishesConsultaDTO);   
+            
             }catch(Exception e)
             {
                 return BadRequest(e.Message);

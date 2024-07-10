@@ -1,4 +1,5 @@
 ﻿using breakevenApi.Domain.Entities.Medic;
+using Microsoft.EntityFrameworkCore;
 
 namespace breakevenApi.Infraestructre.Repositories;
 
@@ -11,10 +12,10 @@ public class MedicRepository : IMedicRepository
         _context = context;
     }
 
-    public async Task Create(Medic medic)
+    public void Create(Medic medic)
     {
         _context.Medics.Add(medic);
-        await _context.SaveChangesAsync();
+         _context.SaveChanges();
     }
 
     public Medic GetByCrm(long crm)

@@ -60,18 +60,16 @@ namespace breakevenApi.Domain.Services
 
         public bool FinishesConsulta(FinishesConsultaDTO finishesConsultaDTO)
         {
-            DateOnly formatteddata = DateOnly.Parse(finishesConsultaDTO.Data);
+            DateOnly formatteddata = finishesConsultaDTO.getDataConsulta();
 
             var consulta = _consultaRepository.GetById(finishesConsultaDTO.IdEsp, finishesConsultaDTO.IdPaciente, finishesConsultaDTO.IdMedico, formatteddata);
-
-            if (finishesConsultaDTO.HoraFimConsulta.IsNullOrEmpty()) consulta.HoraFimConsulta = DateTime.Now;
-
+            
             if (consulta == null)
             {
                 _logger.LogError("Consulta não encontrada");
                 return false;
             }
-            consulta.HoraFimConsulta = DateTime.Parse(finishesConsultaDTO.HoraFimConsulta);
+            consulta.HoraFimConsulta = finishesConsultaDTO.getHoraFim();
 
             var diagnostico = finishesConsultaDTO.Diagnostico;
             Diagnostico newDiagnostico = new Diagnostico(
@@ -210,6 +208,7 @@ namespace breakevenApi.Domain.Services
 
         public bool AddHistorico(Consulta consulta)
         {
+            return true;
             var historico = _historicoPacienteRepository.GetById(consulta.IdPaciente, consulta.GetId());
             if (historico == null)
             {
@@ -236,10 +235,10 @@ namespace breakevenApi.Domain.Services
         public List<HorarioDTO> GenerateHorarios(DateOnly date)
         {
             var horarios = new List<HorarioDTO>();
-            var startTime = new DateTime(date.Year, date.Month, date.Day, 8, 0, 0); // Starting at 8:00 
-            var endTime = new DateTime(date.Year, date.Month, date.Day, 17, 0, 0); // Ending at 17:00
-
-            while (startTime < endTime)
+            var startTime = new TimeOnly(8, 0);
+            var endTime = new TimeOnly(17, 00);
+            
+            while (startTime.CompareTo(endTime) < 0)
             {
                 var fim = startTime.AddMinutes(30); // 30 minutes
                 horarios.Add(new HorarioDTO(startTime, fim, true));
@@ -249,25 +248,29 @@ namespace breakevenApi.Domain.Services
             return horarios;
         }
 
-        private bool IsOverlapping(DateTime consultaStart, DateTime consultaEnd, DateTime slotStart, DateTime slotEnd)
+        private bool IsOverlapping(TimeOnly consultaStart, TimeOnly consultaEnd, TimeOnly slotStart, TimeOnly slotEnd)
         {
-            return consultaStart < slotEnd && consultaEnd > slotStart;
+            return consultaStart.CompareTo(slotEnd) < 0 && consultaEnd.CompareTo(slotStart) > 0;
         }
 
-        public bool CreateConsulta(CreateConsultaDTO createConsultaDTO)
+
+        public async Task<bool> CreateConsulta(CreateConsultaDTO createConsultaDTO)
         {
             var medic = _medicoRepository.GetByName(createConsultaDTO.NomeMedicoPreferencia);
-            if (!IsTimeSlotAvailable(createConsultaDTO.HoraInicio, createConsultaDTO.HoraFim, medic.Crm))
+            if (!IsTimeSlotAvailable(createConsultaDTO.getHoraInicio(), createConsultaDTO.getHoraFim(), medic.Crm, createConsultaDTO.getDataConsulta()))
             {
                 return false; 
             }
+
+            var auxData = createConsultaDTO.getDataConsulta();
+            Console.WriteLine("DATA: " + auxData);
             var newConsulta = new Consulta(
                 _especialidadeRepository.GetByCodigo(createConsultaDTO.CodigoEspecialidade).Codigo,
                 _pacienteRepository.GetByCpf(createConsultaDTO.CPFPaciente).CodigoPaciente,
                 medic.Crm,
-                new DateOnly(createConsultaDTO.DataConsulta.Year, createConsultaDTO.DataConsulta.Month, createConsultaDTO.DataConsulta.Day),
-                createConsultaDTO.HoraInicio,
-                createConsultaDTO.HoraFim,
+                auxData,
+                createConsultaDTO.getHoraInicio(),
+                createConsultaDTO.getHoraFim(),
                 false,
                 null,
                 null
@@ -276,18 +279,18 @@ namespace breakevenApi.Domain.Services
             return true;
         }
 
-        public bool IsTimeSlotAvailable(DateTime startTime, DateTime endTime, long crm)
+        public bool IsTimeSlotAvailable(TimeOnly startTime, TimeOnly endTime, long crm, DateOnly day)
         {
-            DateOnly day = new DateOnly(startTime.Year, startTime.Month, startTime.Day);
             var dayConsultas = _consultaRepository.GetByCrmAndDate(crm, day);
             foreach (var consulta in dayConsultas)
             {
-                if (startTime < consulta.HoraFimConsulta && endTime > consulta.HoraInicioConsulta)
+                if (startTime.CompareTo(consulta.HoraFimConsulta) < 0 && endTime.CompareTo(consulta.HoraInicioConsulta) > 0)
                 {
-                    return false; 
+                    return false;
                 }
             }
-            return true; 
+            return true;
         }
+
     }
 }

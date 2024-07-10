@@ -2,7 +2,7 @@
 {
     public interface IDoencaRepository
     {
-        Task Create(Doenca doenca);
+        void Create(Doenca doenca);
         Doenca GetById(long id);
         List<Doenca> GetAll();
         void Update(Doenca doenca);

@@ -2,7 +2,7 @@
 {
     public interface IDiagnosticoRepository
     {
-        Task Create(Diagnostico diagnostico);
+        void Create(Diagnostico diagnostico);
         Diagnostico GetById(long diagnosticoId);
         List<Diagnostico> GetAll();
         void Update(Diagnostico diagnostico);

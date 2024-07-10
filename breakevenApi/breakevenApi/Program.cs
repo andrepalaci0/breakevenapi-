@@ -29,20 +29,20 @@ builder.Services.AddDbContext<DataContext>(options =>
         options.UseSqlServer(connectionString),
         ServiceLifetime.Singleton);
 
-builder.Services.AddScoped<IAgendaRepository, AgendaRepository>();
-builder.Services.AddScoped<IConsultaRepository, ConsultaRepository>();
-builder.Services.AddScoped<IDiagnosticaRepository, DiagnosticaRepository>();
-builder.Services.AddScoped<IDiagnosticoRepository, DiagnosticoRepository>();
-builder.Services.AddScoped<IDoencaRepository, DoencaRepository>();
-builder.Services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
-builder.Services.AddScoped<IExerceEspRepository, ExerceEspRepository>();
-builder.Services.AddScoped<IMedicRepository, MedicRepository>();
-builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
-builder.Services.AddScoped<IHistoricoPacienteRepository, HistoricoPacienteRepository>();
 
 
-builder.Services.AddScoped<ConsultaService>();
-builder.Services.AddScoped<AgendaService>();
+builder.Services.AddSingleton<IAgendaRepository, AgendaRepository>();
+builder.Services.AddSingleton<IConsultaRepository, ConsultaRepository>();
+builder.Services.AddSingleton<IDiagnosticaRepository, DiagnosticaRepository>();
+builder.Services.AddSingleton<IDiagnosticoRepository, DiagnosticoRepository>();
+builder.Services.AddSingleton<IDoencaRepository, DoencaRepository>();
+builder.Services.AddSingleton<IEspecialidadeRepository, EspecialidadeRepository>();
+builder.Services.AddSingleton<IExerceEspRepository, ExerceEspRepository>();
+builder.Services.AddSingleton<IMedicRepository, MedicRepository>();
+builder.Services.AddSingleton<IPacienteRepository, PacienteRepository>();
+builder.Services.AddSingleton<IHistoricoPacienteRepository, HistoricoPacienteRepository>();
+builder.Services.AddSingleton<ConsultaService>();
+builder.Services.AddSingleton<AgendaService>();
 
 
 var app = builder.Build();

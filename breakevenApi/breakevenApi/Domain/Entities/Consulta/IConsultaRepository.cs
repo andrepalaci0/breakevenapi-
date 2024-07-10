@@ -2,7 +2,7 @@
 {
     public interface IConsultaRepository
     {
-        Task Create(Consulta consulta);
+        void Create(Consulta consulta);
         Consulta GetById(long idEspecialidade, long idPaciente, long idMedico, DateOnly data);
         List<Consulta> GetAll();
         public List<Consulta> GetAllByIdMedico(long idMedico);

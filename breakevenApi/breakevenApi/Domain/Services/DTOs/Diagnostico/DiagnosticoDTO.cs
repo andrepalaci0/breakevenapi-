@@ -14,5 +14,17 @@
             TratamentosRecomendados = tratamentosRecomendados;
             IdConsulta = idConsulta;
         }
+        
+        public DiagnosticoDTO(string message, string remediosReceitados, string tratamentosRecomendados)
+        {
+            Message = message;
+            RemediosReceitados = remediosReceitados;
+            TratamentosRecomendados = tratamentosRecomendados;
+        }
+
+        public DiagnosticoDTO()
+        {
+            
+        }
     }
 }

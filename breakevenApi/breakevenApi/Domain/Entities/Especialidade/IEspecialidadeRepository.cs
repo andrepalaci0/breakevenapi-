@@ -2,7 +2,7 @@
 {
     public interface IEspecialidadeRepository
     {
-        Task Create(Especialidade especialidade);
+        void Create(Especialidade especialidade);
         Especialidade GetByCodigo(long codigo);
         List<Especialidade> GetAll();
         void Update(Especialidade especialidade);

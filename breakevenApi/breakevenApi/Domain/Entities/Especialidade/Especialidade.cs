@@ -9,7 +9,6 @@ namespace breakevenApi.Domain.Entities.Especialidade
         [Key]
         public long Id { get; private set; }
 
-
         [Required]
         public long Codigo { get; private set; }
 
